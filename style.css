@@ -24,3 +24,37 @@ h2 {
   width: 200px;
   height: 10px;
 }
+
+#guess {
+  width: 300px;
+  height: 50px;
+  background-color: black;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 40px;
+}
+
+#guess-button {
+  border: 3px solid white;
+  background-color: black;
+  color: white;
+  font-size: 2rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  height: 60px;
+  cursor: pointer;
+}
+
+#guess-button:hover {
+  background-color: white;
+  color: black;
+  transition: 0.3s;
+}
+
+#message {
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 50px;
+}
