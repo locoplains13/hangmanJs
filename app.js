@@ -6,7 +6,8 @@ import randomWords from "random-words";
  * IT WON'T WORK IF YOU DON'T RUN IT THROUGH VITE
  */
 //hide the play again button until game ends (by losing or winning)
-//TODO
+let playAgainBtn = document.getElementById("play-again");
+playAgainBtn.style.display = "none";
 
 // first generation of the word
 let chosenWord = randomWords(1)[0];
@@ -30,6 +31,7 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
     hiddenWord = guess;
     revealWord();
     setMessage("you've won!!");
+    hideShowPlayAgainBtn();
   } else if (guess === "") {
     setMessage("you can't guess an empty space");
   } else {
@@ -46,6 +48,13 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
       totalGuesses--;
     }
   }
+}
+
+//show or hide the play again button, depends on its current state
+function hideShowPlayAgainBtn() {
+  if (playAgainBtn.style.display === "none")
+    playAgainBtn.style.display = "inline-block";
+  else playAgainBtn.style.display = "none";
 }
 
 function hideWord(chosenWord) {
@@ -101,5 +110,6 @@ document.getElementById("guess-button").addEventListener("click", function () {
   checkIfEqual(guess, chosenWord, hiddenWord);
   if (totalGuesses <= 0) {
     setMessage("you've lost!!! :(");
+    hideShowPlayAgainBtn();
   }
 });
