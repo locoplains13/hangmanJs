@@ -55,6 +55,16 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
       totalGuesses--;
     }
   }
+  let fullString = "";
+  for (let i = 0; i < hiddenWord.length; i++) {
+    fullString += hiddenWord[i];
+  }
+  if (fullString === chosenWord) {
+    setMessage("you've won!!");
+    addWin();
+    disableBtn();
+    hideShowPlayAgainBtn();
+  }
 }
 
 //show or hide the play again button, depends on its current state
