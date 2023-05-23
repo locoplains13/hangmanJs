@@ -16,4 +16,11 @@ h2 {
 #main-game {
   color: white;
   font-size: 100px;
+  margin: 0;
+}
+
+#hang-structure {
+  background-color: white;
+  width: 200px;
+  height: 10px;
 }
