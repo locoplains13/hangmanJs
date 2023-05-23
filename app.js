@@ -1,10 +1,10 @@
-"use strict";
-import randomWords from "random-words";
-
 /**
  * IMPORTANT RUN THROUGH VITE OR IT MAY FUCK UP EVERYTHING
  * IT WON'T WORK IF YOU DON'T RUN IT THROUGH VITE
  */
+"use strict";
+import randomWords from "random-words";
+
 //hide the play again button until game ends (by losing or winning)
 let playAgainBtn = document.getElementById("play-again");
 playAgainBtn.style.display = "none";
@@ -38,10 +38,9 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
     setMessage("you've won!!");
     addWin();
     disableBtn();
-    hideShowPlayAgainBtn();
   } else if (guess === "") {
     setMessage("you can't guess an empty space");
-  } else {
+  } else if (guess.length === 1) {
     for (let i = 0; i < chosenWord.length; i++) {
       if (chosenWord[i] === guess) {
         hiddenWord[i] = guess;
@@ -54,6 +53,9 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
       setMessage("wrong letter");
       totalGuesses--;
     }
+  } else {
+    setMessage("wrong word");
+    totalGuesses--;
   }
   let fullString = "";
   for (let i = 0; i < hiddenWord.length; i++) {
@@ -110,11 +112,27 @@ function draw() {
   ctx.strokeStyle = "white";
   ctx.lineWidth = 5;
 
-  // draw a red line
+  // draw the base
   ctx.beginPath();
   ctx.moveTo(100, 350);
-  ctx.lineTo(300, 350);
+  ctx.lineTo(200, 350);
   ctx.stroke();
+
+  // draw the pole where it stands
+  ctx.beginPath();
+  ctx.moveTo(150, 350);
+  ctx.lineTo(150, 50);
+  ctx.stroke();
+
+  // draw the hanging base
+  ctx.beginPath();
+  ctx.moveTo(150, 50);
+  ctx.lineTo(300, 50);
+  ctx.stroke();
+
+  /**AFTER THIS YOU HAVE TO SEPARATE EACH COMPONENT OF THE HANGMAN INTO FUNCTIONS TO DO
+   * AFTER THE PLAYER GETS A LETTER OR WORD WRONG
+   */
 
   ctx.beginPath();
   ctx.moveTo;
