@@ -16,7 +16,7 @@ const usedLetters = new Array();
 const usedWords = new Array();
 
 let totalGuesses = 7;
-
+let wins = 0;
 //the word but to be displayed as hidden
 let hiddenWord = hideWord(chosenWord);
 displayWord();
@@ -25,12 +25,19 @@ function setMessage(message) {
   document.getElementById("message").textContent = message;
 }
 
+function addWin() {
+  wins++;
+  document.getElementById("wins").textContent += wins;
+}
+
 function checkIfEqual(guess, chosenWord, hiddenWord) {
   let foundLetter = false;
-  if (guess === chosenWord) {
+  if (guess === chosenWord && totalGuesses > 0) {
     hiddenWord = guess;
     revealWord();
     setMessage("you've won!!");
+    addWin();
+    disableBtn();
     hideShowPlayAgainBtn();
   } else if (guess === "") {
     setMessage("you can't guess an empty space");
@@ -115,9 +122,18 @@ document.getElementById("guess-button").addEventListener("click", function () {
   checkIfEqual(guess, chosenWord, hiddenWord);
   if (totalGuesses <= 0) {
     setMessage("you've lost!!! :(");
+    revealWord();
+    disableBtn;
     hideShowPlayAgainBtn();
   }
 });
+
+function disableBtn() {
+  document.getElementById("guess-button").disabled = true;
+}
+function enableBtn() {
+  document.getElementById("guess-button").disabled = false;
+}
 
 document.getElementById("play-again").addEventListener("click", function () {
   totalGuesses = 7;
@@ -126,4 +142,5 @@ document.getElementById("play-again").addEventListener("click", function () {
   hiddenWord = hideWord(chosenWord);
   displayWord();
   hideShowPlayAgainBtn();
+  enableBtn();
 });
