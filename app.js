@@ -95,10 +95,14 @@ function draw() {
 
   // draw a red line
   ctx.beginPath();
-  ctx.moveTo(100, 100);
-  ctx.lineTo(300, 100);
+  ctx.moveTo(100, 350);
+  ctx.lineTo(300, 350);
   ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo;
 }
+
 draw();
 
 console.log(chosenWord.length);
