@@ -5,9 +5,16 @@ import randomWords from "random-words";
  * IMPORTANT RUN THROUGH VITE OR IT MAY FUCK UP EVERYTHING
  * IT WON'T WORK IF YOU DON'T RUN IT THROUGH VITE
  */
+//hide the play again button until game ends (by losing or winning)
+//TODO
 
 // first generation of the word
-const chosenWord = randomWords(1)[0];
+let chosenWord = randomWords(1)[0];
+
+const usedLetters = new Array();
+const usedWords = new Array();
+
+let totalGuesses = 7;
 
 //the word but to be displayed as hidden
 let hiddenWord = hideWord(chosenWord);
@@ -19,22 +26,24 @@ function setMessage(message) {
 
 function checkIfEqual(guess, chosenWord, hiddenWord) {
   let foundLetter = false;
-  let message = "you can't guess an empty space";
   if (guess === chosenWord) {
     hiddenWord = guess;
     revealWord();
+    setMessage("you've won!!");
   } else if (guess === "") {
-    setMessage(message);
+    setMessage("you can't guess an empty space");
   } else {
     for (let i = 0; i < chosenWord.length; i++) {
       if (chosenWord[i] === guess) {
-        hiddenWord[i] = guess; // FIXME FIX THIS WHOLE SHITTY ASS FUNCTION
+        hiddenWord[i] = guess;
         displayWord();
         setMessage("you got a letter right");
         foundLetter = true;
-      } else if (!foundLetter) {
-        setMessage("wrong letter");
       }
+    }
+    if (!foundLetter) {
+      setMessage("wrong letter");
+      totalGuesses--;
     }
   }
 }
@@ -72,7 +81,7 @@ function draw() {
   const ctx = canvas.getContext("2d");
 
   // set line stroke and line width
-  ctx.strokeStyle = "red";
+  ctx.strokeStyle = "white";
   ctx.lineWidth = 5;
 
   // draw a red line
@@ -90,4 +99,7 @@ console.log(chosenWord);
 document.getElementById("guess-button").addEventListener("click", function () {
   let guess = document.getElementById("guess").value;
   checkIfEqual(guess, chosenWord, hiddenWord);
+  if (totalGuesses <= 0) {
+    setMessage("you've lost!!! :(");
+  }
 });
