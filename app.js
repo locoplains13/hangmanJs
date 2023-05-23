@@ -107,9 +107,19 @@ console.log(chosenWord);
 
 document.getElementById("guess-button").addEventListener("click", function () {
   let guess = document.getElementById("guess").value;
+  document.getElementById("guess").value = "";
   checkIfEqual(guess, chosenWord, hiddenWord);
   if (totalGuesses <= 0) {
     setMessage("you've lost!!! :(");
     hideShowPlayAgainBtn();
   }
+});
+
+document.getElementById("play-again").addEventListener("click", function () {
+  totalGuesses = 7;
+  setMessage("guess a letter or word");
+  chosenWord = randomWords(1)[0];
+  hiddenWord = hideWord(chosenWord);
+  displayWord();
+  hideShowPlayAgainBtn();
 });
