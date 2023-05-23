@@ -19,6 +19,10 @@ ul li {
   float: right;
 }
 
+#wins p {
+  display: inline;
+}
+
 #game {
   text-align: center;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,

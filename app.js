@@ -26,8 +26,9 @@ function setMessage(message) {
 }
 
 function addWin() {
+  wins = Number(document.getElementById("number-wins").textContent);
   wins++;
-  document.getElementById("wins").textContent += wins;
+  document.getElementById("number-wins").textContent = wins;
 }
 
 function checkIfEqual(guess, chosenWord, hiddenWord) {
@@ -36,8 +37,6 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
     hiddenWord = guess;
     revealWord();
     setMessage("you've won!!");
-    addWin();
-    disableBtn();
   } else if (guess === "") {
     setMessage("you can't guess an empty space");
   } else if (guess.length === 1) {
