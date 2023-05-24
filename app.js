@@ -5,6 +5,15 @@
 "use strict";
 import randomWords from "random-words";
 
+/**different kinds of messages
+ * for when  you win, lose, etc
+ */
+const winningMessage = "you've won!!!";
+const emptySpaceMessage = "you can't guess an empty space";
+const wrongWordMessage = "wrong word";
+const wrongLetterMessage = "wrong letter";
+const rightLetterMessage = "you got a letter right";
+
 //hide the play again button until game ends (by losing or winning)
 let playAgainBtn = document.getElementById("play-again");
 playAgainBtn.style.display = "none";
@@ -36,24 +45,24 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
   if (guess === chosenWord && totalGuesses > 0) {
     hiddenWord = guess;
     revealWord();
-    setMessage("you've won!!");
+    setMessage(winningMessage);
   } else if (guess === "") {
-    setMessage("you can't guess an empty space");
+    setMessage(emptySpaceMessage);
   } else if (guess.length === 1) {
     for (let i = 0; i < chosenWord.length; i++) {
       if (chosenWord[i] === guess) {
         hiddenWord[i] = guess;
         displayWord();
-        setMessage("you got a letter right");
+        setMessage(rightLetterMessage);
         foundLetter = true;
       }
     }
     if (!foundLetter) {
-      setMessage("wrong letter");
+      setMessage(wrongLetterMessage);
       totalGuesses--;
     }
   } else {
-    setMessage("wrong word");
+    setMessage(wrongWordMessage);
     totalGuesses--;
   }
   let fullString = "";
@@ -61,7 +70,7 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
     fullString += hiddenWord[i];
   }
   if (fullString === chosenWord) {
-    setMessage("you've won!!");
+    setMessage(winningMessage);
     addWin();
     disableBtn();
     hideShowPlayAgainBtn();
