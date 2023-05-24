@@ -23,12 +23,7 @@ let chosenWord = randomWords(1)[0];
 
 const usedLetters = new Array();
 const usedWords = new Array();
-let totalGuesses = 7;
 
-function setTotalGuesses() {
-  let totalGuesses = 5;
-}
-setTotalGuesses();
 let wins = 0;
 //the word but to be displayed as hidden
 let hiddenWord = hideWord(chosenWord);
@@ -46,7 +41,7 @@ function addWin() {
 
 function checkIfEqual(guess, chosenWord, hiddenWord) {
   let foundLetter = false;
-  if (guess === chosenWord && totalGuesses > 0) {
+  if (guess === chosenWord) {
     hiddenWord = guess;
     revealWord();
     setMessage(winningMessage);
@@ -64,12 +59,10 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
     if (!foundLetter) {
       arrHangman.shift().call();
       setMessage(wrongLetterMessage);
-      totalGuesses--;
     }
   } else {
     arrHangman.shift().call();
     setMessage(wrongWordMessage);
-    totalGuesses--;
   }
   let fullString = "";
   for (let i = 0; i < hiddenWord.length; i++) {
@@ -79,15 +72,8 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
     setMessage(winningMessage);
     addWin();
     disableBtn();
-    hideShowPlayAgainBtn();
+    ShowPlayAgainBtn();
   }
-}
-
-//show or hide the play again button, depends on its current state
-function hideShowPlayAgainBtn() {
-  if (playAgainBtn.style.display === "none")
-    playAgainBtn.style.display = "inline-block";
-  else playAgainBtn.style.display = "none";
 }
 
 function hideWord(chosenWord) {
@@ -246,36 +232,56 @@ const drawArms = () => {
   ctx.stroke();
 };
 
+function resetCanvas() {
+  const canvas = document.querySelector("#canvas");
+  if (!canvas.getContext) {
+    return;
+  }
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
 //drawing the stick man guy
 draw();
 
 let arrHangman = [drawRope, drawHead, drawTorso, drawArms, drawLegs];
 
 document.getElementById("guess-button").addEventListener("click", function () {
-  let guess = document.getElementById("guess").value;
-  document.getElementById("guess").value = "";
-  checkIfEqual(guess, chosenWord, hiddenWord);
-  if (totalGuesses <= 0) {
+  if (arrHangman.length - 1) {
+    let guess = document.getElementById("guess").value;
+    document.getElementById("guess").value = "";
+    checkIfEqual(guess, chosenWord, hiddenWord);
+  } else {
     setMessage("you've lost!!! :(");
     revealWord();
     disableBtn;
-    hideShowPlayAgainBtn();
+    ShowPlayAgainBtn();
   }
 });
-
+//show or hide the check button
 function disableBtn() {
   document.getElementById("guess-button").disabled = true;
 }
 function enableBtn() {
   document.getElementById("guess-button").disabled = false;
 }
+//show or hide the play again button, depends on its current state
+function ShowPlayAgainBtn() {
+  playAgainBtn.style.display = "inline-block";
+}
+
+function hidePlayAgainBtn() {
+  playAgainBtn.style.display = "none";
+}
 
 document.getElementById("play-again").addEventListener("click", function () {
-  setTotalGuesses();
+  arrHangman = [drawRope, drawHead, drawTorso, drawArms, drawLegs];
   setMessage("guess a letter or word");
+  resetCanvas();
+  draw();
   chosenWord = randomWords(1)[0];
   hiddenWord = hideWord(chosenWord);
   displayWord();
-  hideShowPlayAgainBtn();
+  hidePlayAgainBtn();
   enableBtn();
 });
