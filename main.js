@@ -246,18 +246,6 @@ draw();
 
 let arrHangman = [drawRope, drawHead, drawTorso, drawArms, drawLegs];
 
-document.getElementById("guess-button").addEventListener("click", function () {
-  if (arrHangman.length - 1) {
-    let guess = document.getElementById("guess").value;
-    document.getElementById("guess").value = "";
-    checkIfEqual(guess, chosenWord, hiddenWord);
-  } else {
-    setMessage("you've lost!!! :(");
-    revealWord();
-    disableBtn;
-    ShowPlayAgainBtn();
-  }
-});
 //show or hide the check button
 function disableBtn() {
   document.getElementById("guess-button").disabled = true;
@@ -273,7 +261,18 @@ function ShowPlayAgainBtn() {
 function hidePlayAgainBtn() {
   playAgainBtn.style.display = "none";
 }
-
+console.log(chosenWord);
+document.getElementById("guess-button").addEventListener("click", function () {
+  let guess = document.getElementById("guess").value;
+  document.getElementById("guess").value = "";
+  checkIfEqual(guess, chosenWord, hiddenWord);
+  if (!arrHangman.length) {
+    setMessage("you've lost!!! :(");
+    revealWord();
+    disableBtn;
+    ShowPlayAgainBtn();
+  }
+});
 document.getElementById("play-again").addEventListener("click", function () {
   arrHangman = [drawRope, drawHead, drawTorso, drawArms, drawLegs];
   setMessage("guess a letter or word");
