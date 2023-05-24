@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hangman</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body id="content">
+    <div id="game">
+      <ul>
+        <li id="title">Hangman Game</li>
+        <li id="wins">
+          Wins:
+          <p id="number-wins">0</p>
+        </li>
+      </ul>
+      <canvas id="canvas" height="400" width="500"></canvas>
+      <p id="main-game"></p>
+      <p id="message">guess a letter or word</p>
+      <input type="text" id="guess" required minlength="1" />
+      <button class="btn" type="submit" id="guess-button">Check</button>
+    </div>
+    <div class="last-div">
+      <button class="btn" id="play-again">play again</button>
+    </div>
+  </body>
+</html>
