@@ -146,12 +146,6 @@ function draw() {
   ctx.moveTo;
 }
 
-draw();
-
-console.log(chosenWord.length);
-
-console.log(chosenWord);
-
 document.getElementById("guess-button").addEventListener("click", function () {
   let guess = document.getElementById("guess").value;
   document.getElementById("guess").value = "";
