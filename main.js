@@ -23,8 +23,12 @@ let chosenWord = randomWords(1)[0];
 
 const usedLetters = new Array();
 const usedWords = new Array();
-
 let totalGuesses = 7;
+
+function setTotalGuesses() {
+  let totalGuesses = 5;
+}
+setTotalGuesses();
 let wins = 0;
 //the word but to be displayed as hidden
 let hiddenWord = hideWord(chosenWord);
@@ -58,10 +62,12 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
       }
     }
     if (!foundLetter) {
+      arrHangman.shift().call();
       setMessage(wrongLetterMessage);
       totalGuesses--;
     }
   } else {
+    arrHangman.shift().call();
     setMessage(wrongWordMessage);
     totalGuesses--;
   }
@@ -141,10 +147,109 @@ function draw() {
   /**AFTER THIS YOU HAVE TO SEPARATE EACH COMPONENT OF THE HANGMAN INTO FUNCTIONS TO DO
    * AFTER THE PLAYER GETS A LETTER OR WORD WRONG
    */
+}
+const drawRope = () => {
+  const canvas = document.querySelector("#canvas");
+
+  if (!canvas.getContext) {
+    return;
+  }
+  const ctx = canvas.getContext("2d");
+
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 7.5;
 
   ctx.beginPath();
-  ctx.moveTo;
-}
+  ctx.moveTo(300, 50);
+  ctx.lineTo(300, 95);
+  ctx.stroke();
+};
+
+const drawHead = () => {
+  const canvas = document.querySelector("#canvas");
+
+  if (!canvas.getContext) {
+    return;
+  }
+  const ctx = canvas.getContext("2d");
+
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 7.5;
+
+  ctx.beginPath();
+  ctx.arc(300, 125, 30, 0, 2 * Math.PI);
+  ctx.stroke();
+};
+
+const drawTorso = () => {
+  const canvas = document.querySelector("#canvas");
+
+  if (!canvas.getContext) {
+    return;
+  }
+  const ctx = canvas.getContext("2d");
+
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 7.5;
+
+  ctx.beginPath();
+  ctx.moveTo(300, 155);
+  ctx.lineTo(300, 250);
+  ctx.stroke();
+};
+
+const drawLegs = () => {
+  const canvas = document.querySelector("#canvas");
+
+  if (!canvas.getContext) {
+    return;
+  }
+  const ctx = canvas.getContext("2d");
+
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 7.5;
+
+  //left leg
+  ctx.beginPath();
+  ctx.moveTo(300, 250);
+  ctx.lineTo(270, 290);
+  ctx.stroke();
+
+  //right leg
+  ctx.beginPath();
+  ctx.moveTo(300, 250);
+  ctx.lineTo(330, 290);
+  ctx.stroke();
+};
+
+const drawArms = () => {
+  const canvas = document.querySelector("#canvas");
+
+  if (!canvas.getContext) {
+    return;
+  }
+  const ctx = canvas.getContext("2d");
+
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 7.5;
+
+  //right arm
+  ctx.beginPath();
+  ctx.moveTo(300, 200);
+  ctx.lineTo(340, 220);
+  ctx.stroke();
+
+  //left arm
+  ctx.beginPath();
+  ctx.moveTo(300, 200);
+  ctx.lineTo(260, 220);
+  ctx.stroke();
+};
+
+//drawing the stick man guy
+draw();
+
+let arrHangman = [drawRope, drawHead, drawTorso, drawArms, drawLegs];
 
 document.getElementById("guess-button").addEventListener("click", function () {
   let guess = document.getElementById("guess").value;
@@ -166,7 +271,7 @@ function enableBtn() {
 }
 
 document.getElementById("play-again").addEventListener("click", function () {
-  totalGuesses = 7;
+  setTotalGuesses();
   setMessage("guess a letter or word");
   chosenWord = randomWords(1)[0];
   hiddenWord = hideWord(chosenWord);
