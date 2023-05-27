@@ -285,6 +285,10 @@ document.getElementById("play-again").addEventListener("click", function () {
   enableBtn();
 });
 
-document.getElementById("openbtn").addEventListener("clik", function () {
+document.getElementById("openbtn").addEventListener("click", function () {
   document.getElementById("mySidepanel").style.width = "250px";
+});
+
+document.getElementById("closebtn").addEventListener("click", function () {
+  document.getElementById("mySidepanel").style.width = "0px";
 });

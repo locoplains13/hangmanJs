@@ -87,6 +87,11 @@ ul li {
   width: 50px;
 }
 
+#closebtn {
+  text-align: right;
+  float: right;
+}
+
 .sidepanel {
   width: 0;
   position: fixed;
@@ -94,17 +99,17 @@ ul li {
   height: 250px;
   top: 0;
   left: 0;
-  background-color: #ebebeb;
+  background-color: #1a1818;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  border-color: white;
 }
 
 .sidepanel a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #f8f8f8;
+  color: #ad9f9f;
   display: block;
   transition: 0.3s;
 }
