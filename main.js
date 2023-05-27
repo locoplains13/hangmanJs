@@ -267,6 +267,8 @@ function resetCanvas() {
 //drawing the stick man guy
 draw();
 
+//changing the list here also has to be changed
+//in the play again button
 let arrHangman = [
   drawRope,
   drawHead,
@@ -305,6 +307,8 @@ document.getElementById("guess-button").addEventListener("click", function () {
   }
 });
 document.getElementById("play-again").addEventListener("click", function () {
+  //changing the list here,
+  //must also be changed in the first declaration above
   arrHangman = [
     drawRope,
     drawHead,
@@ -322,8 +326,4 @@ document.getElementById("play-again").addEventListener("click", function () {
   displayWord();
   hidePlayAgainBtn();
   enableBtn();
-});
-
-document.getElementById("openbtn").addEventListener("clik", function () {
-  document.getElementById("mySidepanel").style.width = "250px";
 });
