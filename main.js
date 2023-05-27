@@ -271,7 +271,6 @@ let arrHangman = [
   drawRope,
   drawHead,
   drawTorso,
-  drawArms,
   drawLeftLeg,
   drawRightLeg,
   drawLeftArm,
