@@ -184,7 +184,7 @@ const drawTorso = () => {
   ctx.stroke();
 };
 
-const drawLegs = () => {
+const drawLeftLeg = () => {
   const canvas = document.querySelector("#canvas");
 
   if (!canvas.getContext) {
@@ -200,14 +200,25 @@ const drawLegs = () => {
   ctx.moveTo(300, 250);
   ctx.lineTo(270, 290);
   ctx.stroke();
+};
 
-  //right leg
+const drawRightLeg = () => {
+  const canvas = document.querySelector("#canvas");
+
+  if (!canvas.getContext) {
+    return;
+  }
+  const ctx = canvas.getContext("2d");
+
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 7.5;
+
+  //left leg
   ctx.beginPath();
   ctx.moveTo(300, 250);
   ctx.lineTo(330, 290);
   ctx.stroke();
 };
-
 const drawArms = () => {
   const canvas = document.querySelector("#canvas");
 
@@ -244,7 +255,14 @@ function resetCanvas() {
 //drawing the stick man guy
 draw();
 
-let arrHangman = [drawRope, drawHead, drawTorso, drawArms, drawLegs];
+let arrHangman = [
+  drawRope,
+  drawHead,
+  drawTorso,
+  drawArms,
+  drawLeftLeg,
+  drawRightLeg,
+];
 
 //show or hide the check button
 function disableBtn() {
@@ -283,4 +301,8 @@ document.getElementById("play-again").addEventListener("click", function () {
   displayWord();
   hidePlayAgainBtn();
   enableBtn();
+});
+
+document.getElementById("openbtn").addEventListener("clik", function () {
+  document.getElementById("mySidepanel").style.width = "250px";
 });
