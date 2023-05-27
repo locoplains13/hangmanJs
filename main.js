@@ -219,7 +219,7 @@ const drawRightLeg = () => {
   ctx.lineTo(330, 290);
   ctx.stroke();
 };
-const drawArms = () => {
+const drawRghtArm = () => {
   const canvas = document.querySelector("#canvas");
 
   if (!canvas.getContext) {
@@ -235,6 +235,18 @@ const drawArms = () => {
   ctx.moveTo(300, 200);
   ctx.lineTo(340, 220);
   ctx.stroke();
+};
+
+const drawLeftArm = () => {
+  const canvas = document.querySelector("#canvas");
+
+  if (!canvas.getContext) {
+    return;
+  }
+  const ctx = canvas.getContext("2d");
+
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 7.5;
 
   //left arm
   ctx.beginPath();
@@ -262,6 +274,8 @@ let arrHangman = [
   drawArms,
   drawLeftLeg,
   drawRightLeg,
+  drawLeftArm,
+  drawRghtArm,
 ];
 
 //show or hide the check button
