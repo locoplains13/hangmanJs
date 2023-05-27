@@ -305,7 +305,15 @@ document.getElementById("guess-button").addEventListener("click", function () {
   }
 });
 document.getElementById("play-again").addEventListener("click", function () {
-  arrHangman = [drawRope, drawHead, drawTorso, drawArms, drawLegs];
+  arrHangman = [
+    drawRope,
+    drawHead,
+    drawTorso,
+    drawLeftLeg,
+    drawRightLeg,
+    drawLeftArm,
+    drawRghtArm,
+  ];
   setMessage("guess a letter or word");
   resetCanvas();
   draw();
