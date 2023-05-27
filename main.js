@@ -59,10 +59,12 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
     if (!foundLetter) {
       arrHangman.shift().call();
       setMessage(wrongLetterMessage);
+      usedLetters.push(guess);
     }
   } else {
     arrHangman.shift().call();
     setMessage(wrongWordMessage);
+    usedWords.push(guess);
   }
   let fullString = "";
   for (let i = 0; i < hiddenWord.length; i++) {
@@ -74,6 +76,14 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
     disableBtn();
     ShowPlayAgainBtn();
   }
+}
+
+function openNav() {
+  document.getElementById("mySidepanel").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidepanel").style.width = "0";
 }
 
 function hideWord(chosenWord) {
