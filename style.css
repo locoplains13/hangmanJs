@@ -78,3 +78,33 @@ ul li {
 .last-div {
   text-align: center;
 }
+
+#openbtn {
+  text-align: center;
+  float: left;
+  font-size: 25px;
+  height: 50px;
+  width: 50px;
+}
+
+.sidepanel {
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  height: 250px;
+  top: 0;
+  left: 0;
+  background-color: #ebebeb;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #f8f8f8;
+  display: block;
+  transition: 0.3s;
+}

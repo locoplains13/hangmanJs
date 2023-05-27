@@ -284,3 +284,7 @@ document.getElementById("play-again").addEventListener("click", function () {
   hidePlayAgainBtn();
   enableBtn();
 });
+
+document.getElementById("openbtn").addEventListener("clik", function () {
+  document.getElementById("mySidepanel").style.width = "250px";
+});
