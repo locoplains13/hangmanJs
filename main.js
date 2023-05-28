@@ -13,7 +13,6 @@ const emptySpaceMessage = "you can't guess an empty space";
 const wrongWordMessage = "wrong word";
 const wrongLetterMessage = "wrong letter";
 const rightLetterMessage = "you got a letter right";
-
 //hide the play again button until game ends (by losing or winning)
 let playAgainBtn = document.getElementById("play-again");
 playAgainBtn.style.display = "none";
@@ -271,7 +270,7 @@ draw();
 
 // function for resetting the hangman array
 function resetHangman() {
-  let arrHangman = [
+  return (arrHangman = [
     drawRope,
     drawHead,
     drawTorso,
@@ -279,9 +278,18 @@ function resetHangman() {
     drawRightLeg,
     drawLeftArm,
     drawRghtArm,
-  ];
+  ]);
 }
-
+//initiate hangman array
+let arrHangman = [
+  drawRope,
+  drawHead,
+  drawTorso,
+  drawLeftLeg,
+  drawRightLeg,
+  drawLeftArm,
+  drawRghtArm,
+];
 //show or hide the check button
 function disableBtn() {
   document.getElementById("guess-button").disabled = true;
@@ -297,6 +305,7 @@ function ShowPlayAgainBtn() {
 function hidePlayAgainBtn() {
   playAgainBtn.style.display = "none";
 }
+
 console.log(chosenWord);
 document.getElementById("guess-button").addEventListener("click", function () {
   let guess = document.getElementById("guess").value;
