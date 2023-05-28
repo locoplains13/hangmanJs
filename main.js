@@ -34,8 +34,12 @@ function generateChosen(mode) {
   } else if (mode === 2) {
     return (chosenWord = randomQuotes()["body"]);
   } else {
-    let chosenQuote = randomQuotes()["body"];
-    return (chosenWord = randomWords(1)[0]);
+    let randomNum = Math.floor(Math.random() * 100);
+    if (randomNum < 50) {
+      return (chosenWord = randomQuotes()["body"]);
+    } else {
+      return (chosenWord = randomWords(1)[0]);
+    }
   }
 }
 //initialize word or phrase
@@ -99,7 +103,20 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
   }
   let fullString = "";
   for (let i = 0; i < hiddenWord.length; i++) {
-    fullString += hiddenWord[i];
+    if (
+      chosenWord[i] === " " ||
+      chosenWord[i] === "," ||
+      chosenWord[i] === "'" ||
+      chosenWord[i] === "." ||
+      chosenWord[i] === "-" ||
+      chosenWord[i] === "!" ||
+      chosenWord[i] === "?" ||
+      chosenWord[i] === ";"
+    ) {
+      continue;
+    } else {
+      fullString += hiddenWord[i];
+    }
   }
   if (fullString === guess) {
     setMessage(winningMessage);
@@ -414,11 +431,12 @@ document.getElementById("closebtn").addEventListener("click", function () {
 
 document.getElementById("resetbtn").addEventListener("click", function () {
   chosenWord = document.getElementById("custom-input").value;
+  setMessage("guess a letter or word");
+  resetCanvas();
+  hidePlayAgainBtn();
   if (chosenWord.length) {
     hiddenWord = hideWord(chosenWord);
     displayWord();
-    resetCanvas();
-    hidePlayAgainBtn();
     enableBtn();
     setMessage("guess a letter or word");
     document.getElementById("mySidepanel").style.width = "0px";
@@ -428,8 +446,6 @@ document.getElementById("resetbtn").addEventListener("click", function () {
     resetHangman(difficulty);
     hiddenWord = hideWord(chosenWord);
     displayWord();
-    resetCanvas();
-    hidePlayAgainBtn();
     enableBtn();
   }
 });
