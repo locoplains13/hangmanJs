@@ -19,7 +19,7 @@ let difficulty = 1;
 document.getElementById("medium-dif").style.color = "rgb(250, 250, 250)";
 
 //set default mode to words
-let mode = 2;
+let mode = 1;
 document.getElementById("wordsbtn").style.color = "rgb(250, 250, 250)";
 
 //hide the play again button until game ends (by losing or winning)
@@ -97,8 +97,8 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
     setMessage("punctuation doesn't count");
   } else if (guess.length === 1) {
     for (let i = 0; i < chosenWord.length; i++) {
-      if (chosenWord[i] === guess) {
-        hiddenWord[i] = guess;
+      if (chosenWord[i].toLowerCase() === guess) {
+        hiddenWord[i] = chosenWord[i];
         displayWord();
         setMessage(rightLetterMessage);
         foundLetter = true;
