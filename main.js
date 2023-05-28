@@ -295,7 +295,7 @@ document.getElementById("closebtn").addEventListener("click", function () {
 
 document.getElementById("resetbtn").addEventListener("click", function () {
   chosenWord = document.getElementById("custom-input").value;
-  if (chosenWord.length > 1) {
+  if (chosenWord.length) {
     hiddenWord = hideWord(chosenWord);
     displayWord();
     resetCanvas();
@@ -303,6 +303,7 @@ document.getElementById("resetbtn").addEventListener("click", function () {
     document.getElementById("mySidepanel").style.width = "0px";
     document.getElementById("custom-input").value = "";
   } else {
+    alert("You can only do words longer than 1 character!");
     chosenWord = randomWords(1)[0];
     hiddenWord = hideWord(chosenWord);
     displayWord();
