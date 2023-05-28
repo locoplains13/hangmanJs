@@ -4,7 +4,7 @@
  */
 "use strict";
 import randomWords from "random-words";
-
+import randomQuotes from "random-quotes";
 /**different kinds of messages
  * for when  you win, lose, etc
  */
@@ -26,11 +26,23 @@ document.getElementById("wordsbtn").style.color = "rgb(250, 250, 250)";
 let playAgainBtn = document.getElementById("play-again");
 playAgainBtn.style.display = "none";
 
-// first generation of the word
-let chosenWord = randomWords(1)[0];
+// first generation of the word or phrase
+function generateChosen(mode) {
+  let chosenWord;
+  if (mode === 1) {
+    return (chosenWord = randomWords(1)[0]);
+  } else if (mode === 2) {
+    return (chosenWord = randomQuotes()["body"]);
+  } else {
+    let chosenQuote = randomQuotes()["body"];
+    return (chosenWord = randomWords(1)[0]);
+  }
+}
+//initialize word or phrase
+let chosenWord = generateChosen(mode);
 
+//initialize array of used letters
 const usedLetters = new Array();
-const usedWords = new Array();
 
 let wins = 0;
 //the word but to be displayed as hidden
@@ -103,13 +115,17 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
  */
 function hideWord(chosenWord) {
   let hiddenWord = new Array();
+  let pattern = /\S[a-z]/;
   for (let i = 0; i < chosenWord.length; i++) {
     if (
       chosenWord[i] === " " ||
       chosenWord[i] === "," ||
       chosenWord[i] === "'" ||
       chosenWord[i] === "." ||
-      chosenWord[i] === "-"
+      chosenWord[i] === "-" ||
+      chosenWord[i] === "!" ||
+      chosenWord[i] === "?" ||
+      chosenWord[i] === ";"
     ) {
       hiddenWord[i] = chosenWord[i];
     } else {
@@ -380,7 +396,7 @@ document.getElementById("play-again").addEventListener("click", function () {
   resetHangman(difficulty);
   setMessage("guess a letter or word");
   resetCanvas();
-  chosenWord = randomWords(1)[0];
+  chosenWord = generateChosen(mode);
   hiddenWord = hideWord(chosenWord);
   displayWord();
   hidePlayAgainBtn();
@@ -408,9 +424,9 @@ document.getElementById("resetbtn").addEventListener("click", function () {
     document.getElementById("mySidepanel").style.width = "0px";
     document.getElementById("custom-input").value = "";
   } else {
-    chosenWord = randomWords(1)[0];
-    hiddenWord = hideWord(chosenWord);
+    chosenWord = generateChosen(mode);
     resetHangman(difficulty);
+    hiddenWord = hideWord(chosenWord);
     displayWord();
     resetCanvas();
     hidePlayAgainBtn();

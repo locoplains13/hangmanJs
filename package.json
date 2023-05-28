@@ -12,6 +12,7 @@
     "vite": "^4.3.2"
   },
   "dependencies": {
+    "random-quotes": "^1.3.0",
     "random-words": "^1.3.0"
   }
 }
