@@ -255,6 +255,7 @@ const drawLeftArm = () => {
   ctx.stroke();
 };
 
+// resets the canvas to its normal base
 function resetCanvas() {
   const canvas = document.querySelector("#canvas");
   if (!canvas.getContext) {
@@ -265,11 +266,10 @@ function resetCanvas() {
   draw();
 }
 
-//drawing the stick man guy
+//drawing the base canvas
 draw();
 
-//changing the list here also has to be changed
-//in the play again button
+// function for resetting the hangman array
 function resetHangman() {
   let arrHangman = [
     drawRope,
@@ -322,6 +322,7 @@ document.getElementById("play-again").addEventListener("click", function () {
   enableBtn();
 });
 
+// the next two functions open and close the sidepanel with respective buttons
 document.getElementById("openbtn").addEventListener("click", function () {
   document.getElementById("mySidepanel").style.width = "300px";
 });
