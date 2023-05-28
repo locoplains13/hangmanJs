@@ -380,7 +380,6 @@ document.getElementById("resetbtn").addEventListener("click", function () {
     document.getElementById("mySidepanel").style.width = "0px";
     document.getElementById("custom-input").value = "";
   } else {
-    alert("You can only do words longer than 1 character!");
     chosenWord = randomWords(1)[0];
     hiddenWord = hideWord(chosenWord);
     resetHangman();
