@@ -33,6 +33,7 @@ ul li {
   color: white;
   font-size: 65px;
   margin: 0;
+  font-family: inherit;
 }
 
 #hang-structure {
