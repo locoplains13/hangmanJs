@@ -262,6 +262,7 @@ function resetCanvas() {
   }
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  draw();
 }
 
 //drawing the stick man guy
@@ -320,10 +321,35 @@ document.getElementById("play-again").addEventListener("click", function () {
   ];
   setMessage("guess a letter or word");
   resetCanvas();
-  draw();
   chosenWord = randomWords(1)[0];
   hiddenWord = hideWord(chosenWord);
   displayWord();
   hidePlayAgainBtn();
   enableBtn();
+});
+
+document.getElementById("openbtn").addEventListener("click", function () {
+  document.getElementById("mySidepanel").style.width = "300px";
+});
+
+document.getElementById("closebtn").addEventListener("click", function () {
+  document.getElementById("mySidepanel").style.width = "0px";
+});
+
+document.getElementById("resetbtn").addEventListener("click", function () {
+  chosenWord = document.getElementById("custom-input").value;
+  if (chosenWord.length) {
+    hiddenWord = hideWord(chosenWord);
+    displayWord();
+    resetCanvas();
+    arrHangman = [drawRope, drawHead, drawTorso, drawArms, drawLegs];
+    document.getElementById("mySidepanel").style.width = "0px";
+    document.getElementById("custom-input").value = "";
+  } else {
+    alert("You can only do words longer than 1 character!");
+    chosenWord = randomWords(1)[0];
+    hiddenWord = hideWord(chosenWord);
+    displayWord();
+    resetCanvas();
+  }
 });
