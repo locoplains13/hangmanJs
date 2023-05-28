@@ -89,7 +89,7 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
   for (let i = 0; i < hiddenWord.length; i++) {
     fullString += hiddenWord[i];
   }
-  if (fullString === chosenWord) {
+  if (fullString === guess) {
     setMessage(winningMessage);
     addWin();
     disableBtn();
@@ -104,8 +104,14 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
 function hideWord(chosenWord) {
   let hiddenWord = new Array();
   for (let i = 0; i < chosenWord.length; i++) {
-    if (chosenWord[i] === " ") {
-      hiddenWord[i] = " ";
+    if (
+      chosenWord[i] === " " ||
+      chosenWord[i] === "," ||
+      chosenWord[i] === "'" ||
+      chosenWord[i] === "." ||
+      chosenWord[i] === "-"
+    ) {
+      hiddenWord[i] = chosenWord[i];
     } else {
       hiddenWord[i] = "_";
     }
