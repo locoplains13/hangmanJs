@@ -13,6 +13,15 @@ const emptySpaceMessage = "you can't guess an empty space";
 const wrongWordMessage = "wrong word";
 const wrongLetterMessage = "wrong letter";
 const rightLetterMessage = "you got a letter right";
+
+//set default difficulty to medium
+let difficulty = 1;
+document.getElementById("medium-dif").style.color = "rgb(250, 250, 250)";
+
+//set default mode to words
+let mode = 1;
+document.getElementById("wordsbtn").style.color = "rgb(250, 250, 250)";
+
 //hide the play again button until game ends (by losing or winning)
 let playAgainBtn = document.getElementById("play-again");
 playAgainBtn.style.display = "none";
@@ -282,6 +291,15 @@ const drawLeftArm = () => {
   ctx.stroke();
 };
 
+function drawArms() {
+  drawLeftArm();
+  drawRghtArm();
+}
+
+function drawLegs() {
+  drawLeftLeg();
+  drawRightLeg();
+}
 // resets the canvas to its normal base
 function resetCanvas() {
   const canvas = document.querySelector("#canvas");
@@ -297,16 +315,20 @@ function resetCanvas() {
 draw();
 
 // function for resetting the hangman array
-function resetHangman() {
-  return (arrHangman = [
-    drawRope,
-    drawHead,
-    drawTorso,
-    drawLeftLeg,
-    drawRightLeg,
-    drawLeftArm,
-    drawRghtArm,
-  ]);
+function resetHangman(difficulty) {
+  if (difficulty === 1) {
+    return (arrHangman = [
+      drawRope,
+      drawHead,
+      drawTorso,
+      drawLeftLeg,
+      drawRightLeg,
+      drawLeftArm,
+      drawRghtArm,
+    ]);
+  } else {
+    return (arrHangman = [drawRope, drawHead, drawTorso, drawArms, drawLegs]);
+  }
 }
 //initiate hangman array
 let arrHangman = [
@@ -349,7 +371,7 @@ document.getElementById("guess-button").addEventListener("click", function () {
 document.getElementById("play-again").addEventListener("click", function () {
   //changing the list here,
   //must also be changed in the first declaration above
-  resetHangman();
+  resetHangman(difficulty);
   setMessage("guess a letter or word");
   resetCanvas();
   chosenWord = randomWords(1)[0];
@@ -382,10 +404,46 @@ document.getElementById("resetbtn").addEventListener("click", function () {
   } else {
     chosenWord = randomWords(1)[0];
     hiddenWord = hideWord(chosenWord);
-    resetHangman();
+    resetHangman(difficulty);
     displayWord();
     resetCanvas();
     hidePlayAgainBtn();
     enableBtn();
   }
+});
+
+/**
+ * change colors of the buttons depending on which you have chosen
+ */
+document.getElementById("medium-dif").addEventListener("click", function () {
+  difficulty = 1;
+  document.getElementById("medium-dif").style.color = "rgb(250, 250, 250)";
+  document.getElementById("hard-dif").style.color = "#ad9f9f";
+});
+
+document.getElementById("hard-dif").addEventListener("click", function () {
+  difficulty = 2;
+  document.getElementById("hard-dif").style.color = "rgb(250, 250, 250)";
+  document.getElementById("medium-dif").style.color = "#ad9f9f";
+});
+
+document.getElementById("wordsbtn").addEventListener("click", function () {
+  mode = 1;
+  document.getElementById("wordsbtn").style.color = "rgb(250, 250, 250)";
+  document.getElementById("phrasesbtn").style.color = "#ad9f9f";
+  document.getElementById("bothbtn").style.color = "#ad9f9f";
+});
+
+document.getElementById("phrasesbtn").addEventListener("click", function () {
+  mode = 2;
+  document.getElementById("phrasesbtn").style.color = "rgb(250, 250, 250)";
+  document.getElementById("wordsbtn").style.color = "#ad9f9f";
+  document.getElementById("bothbtn").style.color = "#ad9f9f";
+});
+
+document.getElementById("bothbtn").addEventListener("click", function () {
+  mode = 3;
+  document.getElementById("bothbtn").style.color = "rgb(250, 250, 250)";
+  document.getElementById("wordsbtn").style.color = "#ad9f9f";
+  document.getElementById("phrasesbtn").style.color = "#ad9f9f";
 });
