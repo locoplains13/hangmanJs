@@ -28,16 +28,29 @@ let wins = 0;
 let hiddenWord = hideWord(chosenWord);
 displayWord();
 
+/**
+ *
+ * @param {sets the message to what is happening in the game} message
+ */
 function setMessage(message) {
   document.getElementById("message").textContent = message;
 }
 
+/**
+ * adds a win to the win counter
+ */
 function addWin() {
   wins = Number(document.getElementById("number-wins").textContent);
   wins++;
   document.getElementById("number-wins").textContent = wins;
 }
 
+/**
+ *
+ * @param {the word or letter that the player guessed} guess
+ * @param {the chosen word, either by the player or the computer} chosenWord
+ * @param {the word hidden in underscores as is} hiddenWord
+ */
 function checkIfEqual(guess, chosenWord, hiddenWord) {
   let foundLetter = false;
   if (guess === chosenWord) {
@@ -74,23 +87,38 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
     ShowPlayAgainBtn();
   }
 }
-
+/**
+ *
+ * @param {the word chosen by the player} chosenWord
+ * @returns the word hidden in only underscores
+ */
 function hideWord(chosenWord) {
   let hiddenWord = new Array();
   for (let i = 0; i < chosenWord.length; i++) {
-    hiddenWord[i] = "_";
+    if (chosenWord[i] === " ") {
+      hiddenWord[i] = " ";
+    } else {
+      hiddenWord[i] = "_";
+    }
   }
   return hiddenWord;
 }
 
+/**
+ * displays the word in underscores with spaces in between them
+ */
 function displayWord() {
   let newHiddenWord = "";
   for (let i = 0; i < hiddenWord.length; i++) {
     newHiddenWord += hiddenWord[i] + " ";
-    document.getElementById("main-game").textContent = newHiddenWord;
   }
+  document.getElementById("main-game").textContent = newHiddenWord;
 }
 
+/**
+ * reveals the full word when the player either
+ * wins by guessing full word or loses
+ */
 function revealWord() {
   let newHiddenWord = "";
   for (let i = 0; i < chosenWord.length; i++) {
