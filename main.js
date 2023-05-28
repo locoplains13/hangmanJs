@@ -19,7 +19,7 @@ let difficulty = 1;
 document.getElementById("medium-dif").style.color = "rgb(250, 250, 250)";
 
 //set default mode to words
-let mode = 1;
+let mode = 2;
 document.getElementById("wordsbtn").style.color = "rgb(250, 250, 250)";
 
 //hide the play again button until game ends (by losing or winning)
@@ -84,6 +84,17 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
     setMessage(winningMessage);
   } else if (guess === "") {
     setMessage(emptySpaceMessage);
+  } else if (
+    guess === " " ||
+    guess === "," ||
+    guess === "'" ||
+    guess === "." ||
+    guess === "-" ||
+    guess === "!" ||
+    guess === "?" ||
+    guess === ";"
+  ) {
+    setMessage("punctuation doesn't count");
   } else if (guess.length === 1) {
     for (let i = 0; i < chosenWord.length; i++) {
       if (chosenWord[i] === guess) {
@@ -103,22 +114,9 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
   }
   let fullString = "";
   for (let i = 0; i < hiddenWord.length; i++) {
-    if (
-      chosenWord[i] === " " ||
-      chosenWord[i] === "," ||
-      chosenWord[i] === "'" ||
-      chosenWord[i] === "." ||
-      chosenWord[i] === "-" ||
-      chosenWord[i] === "!" ||
-      chosenWord[i] === "?" ||
-      chosenWord[i] === ";"
-    ) {
-      continue;
-    } else {
-      fullString += hiddenWord[i];
-    }
+    fullString += hiddenWord[i];
   }
-  if (fullString === guess) {
+  if (fullString === chosenWord) {
     setMessage(winningMessage);
     addWin();
     disableBtn();
