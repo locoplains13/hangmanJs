@@ -270,15 +270,17 @@ draw();
 
 //changing the list here also has to be changed
 //in the play again button
-let arrHangman = [
-  drawRope,
-  drawHead,
-  drawTorso,
-  drawLeftLeg,
-  drawRightLeg,
-  drawLeftArm,
-  drawRghtArm,
-];
+function resetHangman() {
+  let arrHangman = [
+    drawRope,
+    drawHead,
+    drawTorso,
+    drawLeftLeg,
+    drawRightLeg,
+    drawLeftArm,
+    drawRghtArm,
+  ];
+}
 
 //show or hide the check button
 function disableBtn() {
@@ -310,15 +312,7 @@ document.getElementById("guess-button").addEventListener("click", function () {
 document.getElementById("play-again").addEventListener("click", function () {
   //changing the list here,
   //must also be changed in the first declaration above
-  arrHangman = [
-    drawRope,
-    drawHead,
-    drawTorso,
-    drawLeftLeg,
-    drawRightLeg,
-    drawLeftArm,
-    drawRghtArm,
-  ];
+  resetHangman();
   setMessage("guess a letter or word");
   resetCanvas();
   chosenWord = randomWords(1)[0];
@@ -342,13 +336,13 @@ document.getElementById("resetbtn").addEventListener("click", function () {
     hiddenWord = hideWord(chosenWord);
     displayWord();
     resetCanvas();
-    arrHangman = [drawRope, drawHead, drawTorso, drawArms, drawLegs];
     document.getElementById("mySidepanel").style.width = "0px";
     document.getElementById("custom-input").value = "";
   } else {
     alert("You can only do words longer than 1 character!");
     chosenWord = randomWords(1)[0];
     hiddenWord = hideWord(chosenWord);
+    resetHangman();
     displayWord();
     resetCanvas();
   }
