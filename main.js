@@ -374,6 +374,9 @@ document.getElementById("resetbtn").addEventListener("click", function () {
     hiddenWord = hideWord(chosenWord);
     displayWord();
     resetCanvas();
+    hidePlayAgainBtn();
+    enableBtn();
+    setMessage("guess a letter or word");
     document.getElementById("mySidepanel").style.width = "0px";
     document.getElementById("custom-input").value = "";
   } else {
@@ -383,5 +386,7 @@ document.getElementById("resetbtn").addEventListener("click", function () {
     resetHangman();
     displayWord();
     resetCanvas();
+    hidePlayAgainBtn();
+    enableBtn();
   }
 });
