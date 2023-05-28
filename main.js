@@ -302,9 +302,10 @@ document.getElementById("resetbtn").addEventListener("click", function () {
     arrHangman = [drawRope, drawHead, drawTorso, drawArms, drawLegs];
     document.getElementById("mySidepanel").style.width = "0px";
     document.getElementById("custom-input").value = "";
+  } else {
+    chosenWord = randomWords(1)[0];
+    hiddenWord = hideWord(chosenWord);
+    displayWord();
+    resetCanvas();
   }
-  chosenWord = randomWords(1)[0];
-  hiddenWord = hideWord(chosenWord);
-  displayWord();
-  resetCanvas();
 });
