@@ -64,7 +64,7 @@ function setMessage(message) {
  * adds a win to the win counter
  */
 function addWin() {
-  if (document.getElementById("message").textContent != winningMessage) {
+  if (document.getElementById("message").textContent === winningMessage) {
     wins = Number(document.getElementById("number-wins").textContent);
     wins++;
     document.getElementById("number-wins").textContent = wins;
@@ -91,10 +91,8 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
       }
     }
     if (!foundLetter) {
-      if (
-        arrHangman.length &&
-        document.getElementById("message").textContent != winningMessage
-      ) {
+      let x = document.getElementById("message").textContent;
+      if (arrHangman.length && x !== winningMessage) {
         arrHangman.shift().call();
         setMessage(wrongLetterMessage);
       }
@@ -108,6 +106,7 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
   }
   if (fullString === chosenWord) {
     setMessage(winningMessage);
+    const x = document.getElementById("message").textContent;
     addWin();
     ShowPlayAgainBtn();
   }
@@ -375,6 +374,7 @@ function ShowPlayAgainBtn() {
 function hidePlayAgainBtn() {
   playAgainBtn.style.display = "none";
 }
+console.log(chosenWord);
 
 document.addEventListener("keydown", (event) => {
   let guess = new RegExp(event.key);
