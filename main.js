@@ -376,12 +376,8 @@ function hidePlayAgainBtn() {
 }
 console.log(chosenWord);
 
-function spIsActive() {
-  return document.getElementById("mySidepanel").style.width === "300px";
-}
-
 document.addEventListener("keydown", (event) => {
-  if (!spIsActive()) {
+  if (document.activeElement.id !== "custom-input") {
     let guess = new RegExp(event.key);
     console.log(`pressed key was ${guess}`);
     checkIfEqual(guess, chosenWord, hiddenWord);
@@ -453,6 +449,7 @@ document.getElementById("wordsbtn").addEventListener("click", function () {
   document.getElementById("wordsbtn").style.color = "rgb(250, 250, 250)";
   document.getElementById("phrasesbtn").style.color = "#ad9f9f";
   document.getElementById("bothbtn").style.color = "#ad9f9f";
+  document.getElementById("custom-input").value = "";
 });
 
 document.getElementById("phrasesbtn").addEventListener("click", function () {
@@ -460,6 +457,7 @@ document.getElementById("phrasesbtn").addEventListener("click", function () {
   document.getElementById("phrasesbtn").style.color = "rgb(250, 250, 250)";
   document.getElementById("wordsbtn").style.color = "#ad9f9f";
   document.getElementById("bothbtn").style.color = "#ad9f9f";
+  document.getElementById("custom-input").value = "";
 });
 
 document.getElementById("bothbtn").addEventListener("click", function () {
@@ -467,4 +465,5 @@ document.getElementById("bothbtn").addEventListener("click", function () {
   document.getElementById("bothbtn").style.color = "rgb(250, 250, 250)";
   document.getElementById("wordsbtn").style.color = "#ad9f9f";
   document.getElementById("phrasesbtn").style.color = "#ad9f9f";
+  document.getElementById("custom-input").value = "";
 });
