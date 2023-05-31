@@ -394,9 +394,9 @@ function hidePlayAgainBtn() {
 }
 
 console.log(chosenWord);
-document.getElementById("guess-button").addEventListener("click", function () {
-  let guess = document.getElementById("guess").value;
-  document.getElementById("guess").value = "";
+document.addEventListener("keydown", (event) => {
+  guess = event.key;
+  console.log(`pressed key was ${guess}`);
   checkIfEqual(guess, chosenWord, hiddenWord);
   if (!arrHangman.length) {
     setMessage("you've lost!!! :(");
