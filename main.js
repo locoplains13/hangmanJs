@@ -376,16 +376,23 @@ function hidePlayAgainBtn() {
 }
 console.log(chosenWord);
 
+function spIsActive() {
+  return document.getElementById("mySidepanel").style.width === "300px";
+}
+
 document.addEventListener("keydown", (event) => {
-  let guess = new RegExp(event.key);
-  console.log(`pressed key was ${guess}`);
-  checkIfEqual(guess, chosenWord, hiddenWord);
-  if (!arrHangman.length) {
-    setMessage("you've lost!!! :(");
-    revealWord();
-    ShowPlayAgainBtn();
+  if (!spIsActive()) {
+    let guess = new RegExp(event.key);
+    console.log(`pressed key was ${guess}`);
+    checkIfEqual(guess, chosenWord, hiddenWord);
+    if (!arrHangman.length) {
+      setMessage("you've lost!!! :(");
+      revealWord();
+      ShowPlayAgainBtn();
+    }
   }
 });
+
 document.getElementById("play-again").addEventListener("click", function () {
   //changing the list here,
   //must also be changed in the first declaration above
