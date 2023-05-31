@@ -148,16 +148,7 @@ function hideWord(chosenWord) {
   let hiddenWord = new Array();
   let pattern = /\S[a-z]/;
   for (let i = 0; i < chosenWord.length; i++) {
-    if (
-      chosenWord[i] === " " ||
-      chosenWord[i] === "," ||
-      chosenWord[i] === "'" ||
-      chosenWord[i] === "." ||
-      chosenWord[i] === "-" ||
-      chosenWord[i] === "!" ||
-      chosenWord[i] === "?" ||
-      chosenWord[i] === ";"
-    ) {
+    if (RegExp(chosenWord[i]).test(" ,.';=-1234567890()")) {
       hiddenWord[i] = chosenWord[i];
     } else {
       hiddenWord[i] = "_";
