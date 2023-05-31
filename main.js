@@ -13,6 +13,7 @@ const emptySpaceMessage = "you can't guess an empty space";
 const wrongWordMessage = "wrong word";
 const wrongLetterMessage = "wrong letter";
 const rightLetterMessage = "you got a letter right";
+const startMessage = "type a letter";
 
 //set default difficulty to medium
 let difficulty = 1;
@@ -65,7 +66,7 @@ function setMessage(message) {
  * adds a win to the win counter
  */
 function addWin() {
-  if (!document.getElementById("message").textContent === winningMessage) {
+  if (document.getElementById("message").textContent != winningMessage) {
     wins = Number(document.getElementById("number-wins").textContent);
     wins++;
     document.getElementById("number-wins").textContent = wins;
@@ -80,26 +81,11 @@ function addWin() {
  */
 function checkIfEqual(guess, chosenWord, hiddenWord) {
   let foundLetter = false;
-  if (guess === chosenWord) {
-    hiddenWord = guess;
-    revealWord();
-    setMessage(winningMessage);
-  } else if (guess === "") {
-    setMessage(emptySpaceMessage);
-  } else if (
-    guess === " " ||
-    guess === "," ||
-    guess === "'" ||
-    guess === "." ||
-    guess === "-" ||
-    guess === "!" ||
-    guess === "?" ||
-    guess === ";"
-  ) {
-    setMessage("punctuation doesn't count");
-  } else if (guess.length === 1) {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  if (guess.test(alphabet)) {
     for (let i = 0; i < chosenWord.length; i++) {
-      if (chosenWord[i].toLowerCase() === guess) {
+      let testLetter = RegExp(chosenWord[i].toLowerCase());
+      if (testLetter.toString() === guess.toString()) {
         hiddenWord[i] = chosenWord[i];
         displayWord();
         setMessage(rightLetterMessage);
@@ -107,24 +93,24 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
       }
     }
     if (!foundLetter) {
-      if (arrHangman.length) {
+      if (
+        arrHangman.length &&
+        document.getElementById("message").textContent != winningMessage
+      ) {
         arrHangman.shift().call();
         setMessage(wrongLetterMessage);
       }
     }
   } else {
-    if (arrHangman.length) {
-      arrHangman.shift().call();
-      setMessage(wrongWordMessage);
-    }
+    setMessage("invalid key");
   }
   let fullString = "";
   for (let i = 0; i < hiddenWord.length; i++) {
     fullString += hiddenWord[i];
   }
   if (fullString === chosenWord) {
-    addWin();
     setMessage(winningMessage);
+    addWin();
     ShowPlayAgainBtn();
   }
 }
@@ -392,9 +378,8 @@ function hidePlayAgainBtn() {
   playAgainBtn.style.display = "none";
 }
 
-console.log(chosenWord);
 document.addEventListener("keydown", (event) => {
-  guess = event.key;
+  let guess = new RegExp(event.key);
   console.log(`pressed key was ${guess}`);
   checkIfEqual(guess, chosenWord, hiddenWord);
   if (!arrHangman.length) {
@@ -407,7 +392,7 @@ document.getElementById("play-again").addEventListener("click", function () {
   //changing the list here,
   //must also be changed in the first declaration above
   resetHangman(difficulty);
-  setMessage("guess a letter or word");
+  setMessage(startMessage);
   resetCanvas();
   chosenWord = generateChosen(mode);
   hiddenWord = hideWord(chosenWord);
@@ -426,13 +411,13 @@ document.getElementById("closebtn").addEventListener("click", function () {
 
 document.getElementById("resetbtn").addEventListener("click", function () {
   chosenWord = document.getElementById("custom-input").value;
-  setMessage("guess a letter or word");
+  setMessage(startMessage);
   resetCanvas();
   hidePlayAgainBtn();
   if (chosenWord.length) {
     hiddenWord = hideWord(chosenWord);
     displayWord();
-    setMessage("guess a letter or word");
+    setMessage(startMessage);
     document.getElementById("mySidepanel").style.width = "0px";
     document.getElementById("custom-input").value = "";
   } else {
