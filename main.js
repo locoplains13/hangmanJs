@@ -9,8 +9,6 @@ import randomQuotes from "random-quotes";
  * for when  you win, lose, etc
  */
 const winningMessage = "you've won!!!";
-const emptySpaceMessage = "you can't guess an empty space";
-const wrongWordMessage = "wrong word";
 const wrongLetterMessage = "wrong letter";
 const rightLetterMessage = "you got a letter right";
 const startMessage = "type a letter";
