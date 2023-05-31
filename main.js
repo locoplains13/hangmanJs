@@ -111,7 +111,7 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
         setMessage(wrongLetterMessage);
         document
           .getElementById("message")
-          .animate([{ color: "white" }, { color: "#009900" }], {
+          .animate([{ color: "white" }, { color: "#e02d2d" }], {
             duration: 500,
             iterations: 1,
             direction: "alternate-reverse",
@@ -405,9 +405,15 @@ function hidePlayAgainBtn() {
 console.log(chosenWord);
 
 document.addEventListener("keydown", (event) => {
+  const check1 = document.activeElement.id !== "custom-input";
+  const check2 =
+    document.getElementById("message").textContent !== losingMessage;
+  const check3 =
+    document.getElementById("message").textContent !== winningMessage;
+
   if (
-    document.activeElement.id !== "custom-input" ||
-    document.getElementById("message").textContent !== losingMessage ||
+    document.activeElement.id !== "custom-input" &&
+    document.getElementById("message").textContent !== losingMessage &&
     document.getElementById("message").textContent !== winningMessage
   ) {
     let guess = new RegExp(event.key);
