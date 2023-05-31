@@ -65,9 +65,11 @@ function setMessage(message) {
  * adds a win to the win counter
  */
 function addWin() {
-  wins = Number(document.getElementById("number-wins").textContent);
-  wins++;
-  document.getElementById("number-wins").textContent = wins;
+  if (!document.getElementById("message").textContent === winningMessage) {
+    wins = Number(document.getElementById("number-wins").textContent);
+    wins++;
+    document.getElementById("number-wins").textContent = wins;
+  }
 }
 
 /**
@@ -105,21 +107,24 @@ function checkIfEqual(guess, chosenWord, hiddenWord) {
       }
     }
     if (!foundLetter) {
-      arrHangman.shift().call();
-      setMessage(wrongLetterMessage);
+      if (arrHangman.length) {
+        arrHangman.shift().call();
+        setMessage(wrongLetterMessage);
+      }
     }
   } else {
-    arrHangman.shift().call();
-    setMessage(wrongWordMessage);
+    if (arrHangman.length) {
+      arrHangman.shift().call();
+      setMessage(wrongWordMessage);
+    }
   }
   let fullString = "";
   for (let i = 0; i < hiddenWord.length; i++) {
     fullString += hiddenWord[i];
   }
   if (fullString === chosenWord) {
-    setMessage(winningMessage);
     addWin();
-    disableBtn();
+    setMessage(winningMessage);
     ShowPlayAgainBtn();
   }
 }
@@ -377,13 +382,7 @@ let arrHangman = [
   drawLeftArm,
   drawRghtArm,
 ];
-//show or hide the check button
-function disableBtn() {
-  document.getElementById("guess-button").disabled = true;
-}
-function enableBtn() {
-  document.getElementById("guess-button").disabled = false;
-}
+
 //show or hide the play again button, depends on its current state
 function ShowPlayAgainBtn() {
   playAgainBtn.style.display = "inline-block";
@@ -401,7 +400,6 @@ document.addEventListener("keydown", (event) => {
   if (!arrHangman.length) {
     setMessage("you've lost!!! :(");
     revealWord();
-    disableBtn;
     ShowPlayAgainBtn();
   }
 });
@@ -415,7 +413,6 @@ document.getElementById("play-again").addEventListener("click", function () {
   hiddenWord = hideWord(chosenWord);
   displayWord();
   hidePlayAgainBtn();
-  enableBtn();
 });
 
 // the next two functions open and close the sidepanel with respective buttons
@@ -435,7 +432,6 @@ document.getElementById("resetbtn").addEventListener("click", function () {
   if (chosenWord.length) {
     hiddenWord = hideWord(chosenWord);
     displayWord();
-    enableBtn();
     setMessage("guess a letter or word");
     document.getElementById("mySidepanel").style.width = "0px";
     document.getElementById("custom-input").value = "";
@@ -444,7 +440,6 @@ document.getElementById("resetbtn").addEventListener("click", function () {
     resetHangman(difficulty);
     hiddenWord = hideWord(chosenWord);
     displayWord();
-    enableBtn();
   }
 });
 
