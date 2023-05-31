@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@vercel/analytics": "^1.0.1",
+    "animate.css": "^4.1.1",
     "random-quotes": "^1.3.0",
     "random-words": "^1.3.0"
   }

@@ -5,6 +5,7 @@
 "use strict";
 import randomWords from "random-words";
 import randomQuotes from "random-quotes";
+import "animate.css";
 /**different kinds of messages
  * for when  you win, lose, etc
  */
@@ -12,6 +13,8 @@ const winningMessage = "you've won!!!";
 const wrongLetterMessage = "wrong letter";
 const rightLetterMessage = "you got a letter right";
 const startMessage = "type a letter";
+const losingMessage = "you've lost!!! :(";
+const invalidMessage = "not a letter";
 
 //set default difficulty to medium
 let difficulty = 1;
@@ -79,26 +82,51 @@ function addWin() {
  */
 function checkIfEqual(guess, chosenWord, hiddenWord) {
   let foundLetter = false;
-  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   if (guess.test(alphabet)) {
     for (let i = 0; i < chosenWord.length; i++) {
       let testLetter = RegExp(chosenWord[i].toLowerCase());
-      if (testLetter.toString() === guess.toString()) {
+      if (
+        testLetter.toString().toLowerCase() === guess.toString().toLowerCase()
+      ) {
         hiddenWord[i] = chosenWord[i];
         displayWord();
         setMessage(rightLetterMessage);
+        document
+          .getElementById("message")
+          .animate([{ color: "white" }, { color: "#00e500" }], {
+            duration: 500,
+            iterations: 1,
+            direction: "alternate-reverse",
+          });
+
         foundLetter = true;
       }
     }
+
     if (!foundLetter) {
-      let x = document.getElementById("message").textContent;
-      if (arrHangman.length && x !== winningMessage) {
+      const elementMessage = document.getElementById("message").textContent;
+      if (arrHangman.length && elementMessage !== winningMessage) {
         arrHangman.shift().call();
         setMessage(wrongLetterMessage);
+        document
+          .getElementById("message")
+          .animate([{ color: "white" }, { color: "#009900" }], {
+            duration: 500,
+            iterations: 1,
+            direction: "alternate-reverse",
+          });
       }
     }
   } else {
-    setMessage("invalid key");
+    setMessage(invalidMessage);
+    document
+      .getElementById("message")
+      .animate([{ color: "white" }, { color: "rgb(76, 78, 66)" }], {
+        duration: 500,
+        iterations: 1,
+        direction: "alternate-reverse",
+      });
   }
   let fullString = "";
   for (let i = 0; i < hiddenWord.length; i++) {
@@ -377,12 +405,16 @@ function hidePlayAgainBtn() {
 console.log(chosenWord);
 
 document.addEventListener("keydown", (event) => {
-  if (document.activeElement.id !== "custom-input") {
+  if (
+    document.activeElement.id !== "custom-input" ||
+    document.getElementById("message").textContent !== losingMessage ||
+    document.getElementById("message").textContent !== winningMessage
+  ) {
     let guess = new RegExp(event.key);
     console.log(`pressed key was ${guess}`);
     checkIfEqual(guess, chosenWord, hiddenWord);
     if (!arrHangman.length) {
-      setMessage("you've lost!!! :(");
+      setMessage(losingMessage);
       revealWord();
       ShowPlayAgainBtn();
     }
